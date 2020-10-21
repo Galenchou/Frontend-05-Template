@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>地图编辑器</title>
+  <style>
+    .cell {
+      width: 8px;
+      height: 8px;
+      background: grey;
+      display: inline-block;
+      line-height: 0;
+      vertical-align: top;
+      border-right: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+      box-sizing: border-box;
+    }
+    .contariner {
+      width: 801px;
+    }
+  </style>
+</head>
+<body>
+  <div class="contariner" id="contariner"></div>
+  <script>
+    const map = Array(10000).fill(0)
+    console.log(map.length, 'length')
+    /** 
+     * 用一维数据代替二位数组原理
+     * 
+     * 二维数组的维数* 横向数组的当前位置
+     * 
+     * */
+    const contariner = document.getElementById('contariner')
+    for (let y =0 ;y<100;y++) {
+      for (let x=0;x<100;x++) {
+        const cell = document.createElement('div')
+        cell.classList.add('cell')
+        if (map[100*y+x] === 1) {
+          cell.style.backgroundColor = 'black'
+        }
+        cell.addEventListener('mousemove', () => {
+          console.log(mouseDown,'进来了')
+          if (mouseDown) {
+            if (clear) {
+              cell.style.backgroundColor = ""
+              map[100*y+x] = 0
+            }else {
+              cell.style.backgroundColor = "black";
+              map[100*y + x] = 1
+            }
+          }
+        })
+        contariner.appendChild(cell)
+      }
+    }
+    let mouseDown = false
+    let clear = false
+    document.addEventListener('mousedown', (e) => {
+      mouseDown = true
+      clear = (e.which === 3)
+    })
+    document.addEventListener("mouseup", () => mouseDown=false)
+    document.addEventListener('contextmenu',e => e.preventDefault())
+
+    function path() {
+
+    }
+  </script>
+</body>
+</html>
