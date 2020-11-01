@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kmp</title>
+</head>
+
+<body>
+  <script>
+    function kmp(source, patten) {
+      let table = Array(patten.length).fill(0)
+      {
+        let i = 1, j = 0
+        while (i < patten.length) {
+          if (patten[i] === patten[j]) {
+            ++j, ++i
+          } else {
+            if (j > 0) {
+              j = table[j]
+            } else {
+              ++i
+            }
+          }
+        }
+      }
+      {
+        let i = 0; j = 0;
+        while (i < source.length) {
+
+          if (patten[j] === source[i]) {
+            ++i, ++j
+          } else {
+            if (j > 0) {
+              j = table[j]
+            } else { }
+            ++i
+          }
+          if (j === patten.length) {
+            return true
+          }
+        }
+      }
+
+    }
+    // 测试
+    alert(kmp('word','word'))
+  </script>
+</body>
+
+</html>
